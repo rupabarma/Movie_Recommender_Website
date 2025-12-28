@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href ="{{ url_for('static', filename='styles.css') }}">
+    <title>Movies</title>
+</head>
+
+<body class="home_screen">
+
+    <div>
+        <img src ="{{url_for('static', filename='logo.jpg')}}" alt="error" class="logo-1">
+    </div>
+        <input type="text" list="titles" placeholder="Search for movies" class="search-bar">
+
+        <datalist id="titles">
+            {% for movie in movie_titles %}
+                <option value="{{ movie }}">
+            {% endfor %}
+        </datalist>
+        <button class="recommend-btn" onclick="getRecommendations()">Recommend</button>
+        <script> getRecommendations = function() {
+            const movieTitle = document.querySelector('.search-bar').value;
+            fetch('/recommend', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    'movie': movieTitle
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const recommendationsDiv = document.getElementById('recommendations');
+                const moviesList = document.getElementById('movies');
+                moviesList.innerHTML = '';
+                data.forEach(movie => {
+                    const li = document.createElement('li');
+                    li.textContent = movie;
+                    moviesList.appendChild(li);
+                });
+            });
+        };</script>
+    <div class="recommendations" id="recommendations">
+        <h3 class="recommendation_heading">Recommended Movies:</h3>
+        <ul id="movies" class ="recommended_movies_list" >
+            {% for movie in recommended_movies %}
+                <li>{{ movie }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
