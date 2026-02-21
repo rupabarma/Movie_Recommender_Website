@@ -2,8 +2,8 @@
 from flask import Flask, request, jsonify, render_template 
 import pickle
 
-movies = pickle.load(open('Movie_Recommender_App/movies.pkl', 'rb'))
-similarity = pickle.load(open('Movie_Recommender_App/similarity.pkl', 'rb'))
+movies = pickle.load(open('movies.pkl', 'rb'))
+similarity = pickle.load(open('similarity.pkl', 'rb'))
 
 app = Flask(__name__)
 
