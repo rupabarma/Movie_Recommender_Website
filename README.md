@@ -265,7 +265,7 @@ Movie_Recommender_Website/
 **Rupa Barma**
 
 - GitHub: https://github.com/rupabarma
-- Live Demo: Add your deployed project URL here.
+- Live Demo: [Movie Recommender System](https://movie-recommender-website-on4a.onrender.com).
 
 ## License
 
